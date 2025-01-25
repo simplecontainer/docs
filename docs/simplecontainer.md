@@ -6,10 +6,12 @@ sidebar_position: 1
 # Simplecontainer
 
 :::warning
-
 The project is not stable yet.
-
 :::
+
+See the simplecontainer in action.
+
+<iframe src="https://www.youtube.com/embed/U9OJyiP2nII?si=xz_Ny6YSbzKvqiPP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 The simplecontainer manager is designed to ease life for the developers and DevOps engineers running containers on Docker.
 
