@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Running on localhost
 
-Simplecontainer can expose control plane only to the local so no outside connection can come to the control plane.
+Simplecontainer can expose control plane only to the local so no outside connection can reach the control plane.
 
 ## How to run single node on localhost?
 

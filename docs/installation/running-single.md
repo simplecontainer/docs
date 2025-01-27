@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Running single node
 
-The simplecontainer can as a single node or in cluster mode.
+The simplecontainer can run as a single node or in cluster mode.
 
 If it is not mandatory to have multiple nodes, high availability, and disaster recovery in place for the application,
 single node can be configured to handle container orchestration.
