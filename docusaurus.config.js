@@ -87,8 +87,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Quick start',
-                to: '/docs/intro',
+                label: 'Installation',
+                to: '/category/installation',
               },
               {
                 label: 'Client',

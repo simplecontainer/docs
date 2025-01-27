@@ -1,4 +1,4 @@
-name: Simplecontainer release
+name: Docs release
 
 on:
   push:
