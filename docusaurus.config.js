@@ -101,15 +101,6 @@ const config = {
             ],
           },
           {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/QREJCprg',
-              },
-            ],
-          },
-          {
             title: 'More',
             items: [
               {
