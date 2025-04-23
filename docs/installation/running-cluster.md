@@ -20,7 +20,7 @@ This scenario assumes there are two nodes (virtual machines) connected over inte
 First step is to start simplecontainer for the node 1.
 
 ```bash
-smrmgr start -a smr-node-1 -d node-1.simplecontainer.io
+smrmgr start -a smr-agent-1 -d node-1.simplecontainer.io
 ```
 
 This starts the simplecontainer node and control plane listens on the `0.0.0.0:1443` which means all interfaces,
@@ -30,14 +30,14 @@ Option `-a` is mandatory and is used for specifying name of the node. It must be
 
 Option `-d` specifies that node generates certificates for mTLS which are only valid for the `node-1.simplecontainer.io`.
 
-To connect to this node on another machine there is easy option:
+To connect to the nodes, simplecontainer relies on the contexts (think kube config) - there is easy option to export it and share it:
 
 ```cgo
 smrmgr export <<< https://node-1.simplecontainer.io:1443
-cat $HOME/smr/smr/contexts/$(smr context).key
+cat $HOME/smr/contexts/$(smr context).key
 ```
 
-This exports contexts and encrypt it using AES with key specified on the path `$HOME/smr/smr/contexts/$(smr context).key`.
+This exports contexts and encrypt it using AES with key specified on the path `$HOME/smr/contexts/$(smr context).key`.
 
 :::warning
 Specify correct host, port and include https:// for the control plane endpoint when exporting. If the
@@ -53,22 +53,18 @@ smrmgr import PASTE_OUTPUT <<< PASTE_KEY
 ```
 
 If the key is not specified it will listen on `stdin` for decryption key.
-
-Import client certificate for the node 1.
-
-```cgo
-smr context fetch
-```
+This will import context and fetch certificates from the node it got context from.
 
 Start the simplecontainer for the node 2 and ask to join the cluster with client certificates from node 1.
 
 ```cgo
-smrmgr start -a smr-node-2 -d node-2.simplecontainer.io -j node-1.simplecontainer.io:1443
+smrmgr start -a smr-agent-2 -d node-2.simplecontainer.io -j -z https://node-1.simplecontainer.io:1443
 ```
 
-Option `-j` specifies node that will be asked to join the starting node to the cluster - should be the same as the node from
+- Option `-j` specifies node that will be asked to join the starting node to the cluster - should be the same as the node from
 contexts are imported from.
-
+- Option `-z` specifies URL of the node which we will ask to join the cluster
+- 
 Now control plane should be accessible.
 
 ```cgo title="The smr ps command is used to list all containers in the cluster"

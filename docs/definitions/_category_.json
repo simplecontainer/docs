@@ -2,6 +2,7 @@
   "label": "Definitions",
   "position": 4,
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "description": "Learn what resources are available."
   }
 }
