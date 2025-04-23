@@ -9,13 +9,14 @@ sidebar_position: 1
 The project is in alpha version.
 :::
 
-See the simplecontainer in action.
+# Simplecontainer
+
+**Simplecontainer** is a tool for orchestrating Docker (currently) containers on a single node or across multiple nodes in a cluster.It runs on top of a container engine and manages all associated resources such as containers and networks. SimpleContainer uses a declarative approach—define containers using YAML files, and it will reconcile the actual state to match the defined state.
+
+# See the simplecontainer in action.
 
 <iframe src="https://www.youtube.com/embed/RTu4sj-7qeA?si=cHBtiujoQlMttjJO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-# SimpleContainer
-
-**SimpleContainer** is a tool for orchestrating Docker (currently) containers on a single node or across multiple nodes in a cluster.It runs on top of a container engine and manages all associated resources such as containers and networks. SimpleContainer uses a declarative approach—define containers using YAML files, and it will reconcile the actual state to match the defined state.
 
 ## Features
 

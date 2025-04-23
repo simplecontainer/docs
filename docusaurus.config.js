@@ -59,7 +59,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Simplecontainer',
+        title: 'docs.simplecontainer',
         logo: {
           alt: 'simplecontainer.io',
           src: 'img/logo.png',
@@ -78,6 +78,11 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            href: 'https://app.simplecontainer.io',
+            label: 'Go to app',
+            position: 'right',
+          }
         ],
       },
       footer: {
@@ -88,7 +93,7 @@ const config = {
             items: [
               {
                 label: 'Installation',
-                to: '/category/installation',
+                to: '/category/running-nodes',
               },
               {
                 label: 'Client',
