@@ -8,6 +8,10 @@ The simplecontainer can run as a single node or in cluster mode.
 
 Cluster mode enables multiple docker daemons to run containers and simplecontainer orchestrates them.
 
+:::warning
+First check prerequisites!
+:::
+
 ## How to run cluster mode?
 
 This scenario assumes there are two nodes (virtual machines) connected over internet.

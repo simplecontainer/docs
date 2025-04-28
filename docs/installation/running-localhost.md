@@ -6,6 +6,10 @@ sidebar_position: 4
 
 Simplecontainer can expose control plane only to the local so no outside connection can reach the control plane.
 
+:::warning
+First check prerequisites!
+:::
+
 ## How to run single node on localhost?
 
 It is simple and easy.

@@ -41,20 +41,3 @@ sudo smrmgr install
 smr version
 Client version: v0.0.72
 ```
-
-## Installing smr
-
-The smr is CLI used to communicate to the simplecontainer nodes via control plane. 
-
-To install only smr CLI without installing smrmgr run the snippet below.
-
-```bash
-LATEST_VERSION=$(curl -s https://raw.githubusercontent.com/simplecontainer/client/main/version)
-PLATFORM=linux-amd64
-curl -o client https://github.com/simplecontainer/client/releases/download/$VERSION/client-$PLATFORM
-sudo mv client /usr/local/bin/smr
-
-smr version
-Client version: v0.0.72
-```
-
