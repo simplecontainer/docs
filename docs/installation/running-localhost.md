@@ -11,7 +11,6 @@ Simplecontainer can expose control plane only to the local so no outside connect
 It is simple and easy.
 
 ```cgo
-smrmgr start -a smr-node -e localhost:1443
 smrmgr start -a smr-node -x "--dynamic.hostport=127.0.0.1:1443 --dynamic.overlayport=127.0.0.1:9212"
 ```
 
