@@ -70,7 +70,12 @@ const config = {
           // },
           {
             type: 'html',
-            value: `<a href="https://github.com/simplecontainer/smr" style="display: flex; align-items: center;"><img src="https://img.shields.io/github/v/release/simplecontainer/smr" alt="My Image" style="width: auto;" /></a>`,
+            value: `<a href="https://github.com/simplecontainer/smr" style="display: flex; align-items: center;"><img src="https://img.shields.io/github/v/release/simplecontainer/smr?filter=smr-*" alt="My Image" style="width: auto;" /></a>`,
+            position: 'right',
+          },
+          {
+            type: 'html',
+            value: `<a href="https://github.com/simplecontainer/smr" style="display: flex; align-items: center;"><img src="https://img.shields.io/github/v/release/simplecontainer/smr?filter=smrctl-*" alt="My Image" style="width: auto;" /></a>`,
             position: 'right',
           },
           {

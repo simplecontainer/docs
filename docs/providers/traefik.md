@@ -101,4 +101,4 @@ With this setup, you can easily attach a Traefik router to any Docker container 
 * Supports both single-node deployments and multi-node distributed environments.
 * Enables scaling of Traefik instances for high availability and seamless traffic routing across nodes.
 
-Full examples are available in the [Simplecontainer examples repository](examples/tests/traefik-simplecontainer-provider/definitions).
+Full examples are available in the [Simplecontainer examples repository](https://github.com/simplecontainer/examples).
