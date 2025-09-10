@@ -7,7 +7,7 @@ sidebar_position: 2
 The simplecontainer can run as a single node or in cluster mode.
 
 If it is not mandatory to have multiple nodes, high availability, and disaster recovery in place for the application,
-single node can be configured to handle container orchestration.
+single node also can be configured to handle container orchestration.
 
 :::warning
 First check prerequisites!
@@ -18,11 +18,12 @@ First check prerequisites!
 To run single node of simplecontainer on the machine run the snippet below.
 
 ```bash text title="Starting simplecontainer node with control plane exposed on the smr.example.com"
-smrmgr start -a smr-node-1 -d smr.example.com
+smrmgr start -n smr-node-1 -d node.simplecontainer.io
 ```
 
 This starts the simplecontainer node and control plane listens on the `0.0.0.0:1443` which means all interfaces,
-and is accessible from the internet if machine has the public IP.
+and is accessible over the internet if machine has the public IP. Control plane uses mTLS which implies that all
+control plane is encrypted and secured.
 
 Ports exposed when started using command above:
 
@@ -31,35 +32,44 @@ Ports exposed when started using command above:
 - `:::1443->1443/tcp` (Simplecontainer control plane ipv6)
 - `127.0.0.1:2379->2379/tcp` (Etcd exposed only on the localhost)
 
-Option `-a` is mandatory and is used for specifying name of the node. It must be unique so be careful.
+Option `-n` is not mandatory but is used for specifying name of the node. It must be unique in cluster.
 
 Options `-d` specifies that node generates certificates for mTLS which are only valid for the `smr.example.com`.
 
-To connect to this node on another machine there is easy option:
+To connect to the nodes, simplecontainer relies on the contexts - which are exportable in secure manner using encryption.
 
-```cgo title="Exporting context for the smr.example.com, smr CLI uses context to connect to control plane"
-smrmgr export <<< https://smr.example.com:1443
-cat $HOME/smr/smr/contexts/$(smr context).key
+### Contexts
+A context defines the connection and authentication parameters required to interact with a Simplecontainer node or cluster.
+Contexts make it easy to manage and switch between multiple environments.
+
+Key capabilities:
+
+- Context switching – seamlessly switch between different contexts by selecting the active context.
+- Secure sharing – export a context in encrypted form for safe distribution.
+- Encrypted imports – import encrypted contexts to quickly connect to new clusters.
+
+```cgo title="Context needs to be imported from smr agent first (on the same machine), then can be exported to other machines"
+smrctl context import $(smr agent export --node smr-node-1) -y
+smrctl context export --api node-1.simplecontainer.io:1443
 ```
 
-This exports contexts and encrypt it using AES with key specified on the path `$HOME/smr/smr/contexts/$(smr context).key`.
+This will export context. Both encrypted context and key will be printed on the stdout.
 
 :::warning
-Specify correct host, port and include https:// for the control plane endpoint when exporting. If the 
-port you choose is different change it accordingly. Control plane is always exposed using the https.
+Specify correct hostname/IP/domain and port.
 :::
 
-To import context on the another machine run the commands below.
+On the another machine, context can be imported easily using `smrctl`.
 
 ```cgo title="Copy paste smrmgr export output and $HOME/smr/smr/contexts/$(smr context).key as key for decryption"
-smrmgr import PASTE_OUTPUT <<< PASTE_KEY
+smrctl context import PASTE_OUTPUT PASTE_KEY
 ```
 
 If the key is not specified it will listen on `stdin` for decryption key.
 
 Now control plane should be accessible.
 
-```cgo title="The smr ps command is used to list all containers in the cluster"
-smr ps
+```cgo title="The smrctl ps command is used to list all containers in the cluster"
+smrctl ps
 NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS  ENGINE STATE  SMR STATE  
 ```

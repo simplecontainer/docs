@@ -6,7 +6,7 @@ sidebar_position: 3
 
 The simplecontainer can run as a single node or in cluster mode.
 
-Cluster mode enables multiple docker daemons to run containers and simplecontainer orchestrates them.
+Cluster mode enables multiple docker daemons, on different machines, to run containers and simplecontainer orchestrates on top of the docker.
 
 :::warning
 First check prerequisites!
@@ -24,36 +24,53 @@ This scenario assumes there are two nodes (virtual machines) connected over inte
 First step is to start simplecontainer for the node 1.
 
 ```bash
-smrmgr start -a smr-agent-1 -d node-1.simplecontainer.io
+smrmgr start -n smr-node-1 -d node-1.simplecontainer.io
 ```
 
 This starts the simplecontainer node and control plane listens on the `0.0.0.0:1443` which means all interfaces,
-and is accessible from the internet if machine has the public IP.
+and is accessible over the internet if machine has the public IP. Control plane uses mTLS which implies that all
+control plane is encrypted and secured.
 
-Option `-a` is mandatory and is used for specifying name of the node. It must be unique so be careful.
+Option `-n` is not mandatory but is used for specifying name of the node. It must be unique in cluster.
 
 Option `-d` specifies that node generates certificates for mTLS which are only valid for the `node-1.simplecontainer.io`.
 
-To connect to the nodes, simplecontainer relies on the contexts (think kube config) - there is easy option to export it and share it:
+Ports exposed when started using command above:
 
-```cgo
-smrmgr export <<< https://node-1.simplecontainer.io:1443
-cat $HOME/smr/contexts/$(smr context).key
+- `0.0.0.0:1443->1443/tcp` (Simplecontainer control plane)
+- `0.0.0.0:9212->9212/tcp` (RAFT protocol control plane sharing state)
+- `:::1443->1443/tcp` (Simplecontainer control plane ipv6)
+- `127.0.0.1:2379->2379/tcp` (Etcd exposed only on the localhost)
+
+To connect to the nodes, simplecontainer relies on the contexts - which are exportable in secure manner using encryption.
+
+### Contexts
+A context defines the connection and authentication parameters required to interact with a SimpleContainer node or cluster.
+Contexts make it easy to manage and switch between multiple environments.
+
+Key capabilities:
+
+- Context switching – seamlessly switch between different contexts by selecting the active context.
+- Secure sharing – export a context in encrypted form for safe distribution.
+- Encrypted imports – import encrypted contexts to quickly connect to new clusters.
+
+```cgo title="Context needs to be imported from smr agent first (on the same machine), then can be exported to other machines"
+smrctl context import $(smr agent export --node smr-node-1) -y
+smrctl context export --api node-1.simplecontainer.io:1443
 ```
 
-This exports contexts and encrypt it using AES with key specified on the path `$HOME/smr/contexts/$(smr context).key`.
+This will export context. Both encrypted context and key will be printed on the stdout.
 
 :::warning
-Specify correct host, port and include https:// for the control plane endpoint when exporting. If the
-port you choose is different change it accordingly. Control plane is always exposed using the https.
+Specify correct hostname/IP/domain and port.
 :::
 
 ### Node 2
 
-First step is to import context on the node 2 from node 1.
+First step is to import context via smr (**not smrctl**) on the node 2.
 
 ```cgo
-smrmgr import PASTE_OUTPUT <<< PASTE_KEY
+smr agent import PASTE_OUTPUT PASTE_KEY
 ```
 
 If the key is not specified it will listen on `stdin` for decryption key.
@@ -62,16 +79,16 @@ This will import context and fetch certificates from the node it got context fro
 Start the simplecontainer for the node 2 and ask to join the cluster with client certificates from node 1.
 
 ```cgo
-smrmgr start -a smr-agent-2 -d node-2.simplecontainer.io -j -z https://node-1.simplecontainer.io:1443
+smrmgr start -n smr-node-2 -d node-2.simplecontainer.io -j -p https://node-1.simplecontainer.io:1443
 ```
 
 - Option `-j` specifies node that will be asked to join the starting node to the cluster - should be the same as the node from
 contexts are imported from.
-- Option `-z` specifies URL of the node which we will ask to join the cluster
-- 
+- Option `-p` specifies peer control plane URL which we will ask to join the cluster
+
 Now control plane should be accessible.
 
-```cgo title="The smr ps command is used to list all containers in the cluster"
-smr ps
-NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS  ENGINE STATE  SMR STATE  
+```cgo title="The smrctl ps command is used to list all containers in the cluster"
+smrctl ps
+NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS IMAGE STATE ENGINE STATE  SMR STATE  
 ```
