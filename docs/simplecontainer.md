@@ -5,11 +5,6 @@ sidebar_position: 1
 
 # Simplecontainer
 
-:::warning
-The project is in alpha version.
-:::
-
-# Simplecontainer
 
 **Simplecontainer** is a lightweight orchestrator for Docker containers, capable of running on a single node or managing multiple nodes in a cluster. 
 It sits on top of a container engine and handles related resources such as containers and networks. 
@@ -21,10 +16,9 @@ In summary:
 - Enables distributed Docker daemon orchestration
 - GitOps workflow for Docker containers
 
-# See the simplecontainer in action.
+# See the simplecontainer in action with dashboard.
 
-<iframe src="https://www.youtube.com/embed/RTu4sj-7qeA?si=cHBtiujoQlMttjJO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KjfTljcSD4k?si=Tk9T3wujRItpcYru" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Features
 

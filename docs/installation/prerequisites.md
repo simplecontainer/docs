@@ -36,6 +36,10 @@ In the background it relies on the `smrctl` and `smr` CLI and exposes to the use
 
 To install smrmgr run the snippet below (it will install, under /usr/local/bin, both smr and smrctl).
 
+:::warning
+These commands must be run as non-root user otherwise the deployment will fail.
+:::
+
 ```bash
 curl -sL https://smrmgr.simplecontainer.io -o smrmgr
 chmod +x smrmgr
