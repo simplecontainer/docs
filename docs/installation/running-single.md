@@ -17,6 +17,10 @@ First check prerequisites!
 
 To run single node of simplecontainer on the machine run the snippet below.
 
+:::warning
+The command smrmgr start must be run as non-root user otherwise the deployment will fail.
+:::
+
 ```bash text title="Starting simplecontainer node with control plane exposed on the smr.example.com"
 smrmgr start -n smr-node-1 -d node.simplecontainer.io
 ```

@@ -1,6 +1,6 @@
 {
   "label": "Routing Providers",
-  "position": 4,
+  "position": 6,
   "link": {
     "type": "generated-index",
     "description": "Providers are enabling routing capabilities to the distributed routing inside cluster or routing inside single nodes."

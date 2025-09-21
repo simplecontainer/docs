@@ -14,6 +14,10 @@ First check all prerequisites!
 
 It is simple and easy.
 
+:::warning
+The command smrmgr start must be run as non-root user otherwise the deployment will fail.
+:::
+
 ```cgo
 smrmgr start -n smr-node-1 -c "--port.control 127.0.0.1:1443 --port.overlay 127.0.0.1:9212"
 smrctl context import $(smr agent export --node smr-node-1) -y

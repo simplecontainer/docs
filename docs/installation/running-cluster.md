@@ -23,6 +23,10 @@ This scenario assumes there are two nodes (virtual machines) connected over inte
 
 First step is to start simplecontainer for the node 1.
 
+:::warning
+The command smrmgr start must be run as non-root user otherwise the deployment will fail.
+:::
+
 ```bash
 smrmgr start -n smr-node-1 -d node-1.simplecontainer.io
 ```
@@ -77,6 +81,10 @@ If the key is not specified it will listen on `stdin` for decryption key.
 This will import context and fetch certificates from the node it got context from.
 
 Start the simplecontainer for the node 2 and ask to join the cluster with client certificates from node 1.
+
+:::warning
+The command smrmgr start must be run as non-root user otherwise the deployment will fail.
+:::
 
 ```cgo
 smrmgr start -n smr-node-2 -d node-2.simplecontainer.io -j -p https://node-1.simplecontainer.io:1443
