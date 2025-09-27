@@ -28,7 +28,7 @@ The command smrmgr start must be run as non-root user otherwise the deployment w
 :::
 
 ```bash
-smrmgr start -n smr-node-1 -d node-1.simplecontainer.io
+smrmgr start -d node-1.simplecontainer.io
 ```
 
 This starts the simplecontainer node and control plane listens on the `0.0.0.0:1443` which means all interfaces,
@@ -87,16 +87,17 @@ The command smrmgr start must be run as non-root user otherwise the deployment w
 :::
 
 ```cgo
-smrmgr start -n smr-node-2 -d node-2.simplecontainer.io -j -p https://node-1.simplecontainer.io:1443
+smrmgr start -d node-2.simplecontainer.io -j
 ```
 
 - Option `-j` specifies node that will be asked to join the starting node to the cluster - should be the same as the node from
 contexts are imported from.
-- Option `-p` specifies peer control plane URL which we will ask to join the cluster
+- Option `-p` is optional specifies peer control plane URL which we will ask to join the cluster if empty will be read from smr agent peer
 
 Now control plane should be accessible.
 
 ```cgo title="The smrctl ps command is used to list all containers in the cluster"
 smrctl ps
-NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS IMAGE STATE ENGINE STATE  SMR STATE  
+NODE         RESOURCE                             PORTS IMAGE STATE ENGINE STATE     SMR STATE       
+─────────────────────────────────────────────────────────────────────────────────────────────────────
 ```
