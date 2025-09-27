@@ -19,13 +19,13 @@ The command smrmgr start must be run as non-root user otherwise the deployment w
 :::
 
 ```cgo
-smrmgr start -n smr-node-1 -c "--port.control 127.0.0.1:1443 --port.overlay 127.0.0.1:9212"
-smrctl context import $(smr agent export --node smr-node-1) -y
+smrmgr start -c "--port.control 127.0.0.1:1443 --port.overlay 127.0.0.1:9212"
 ```
 
 Now node is started and can be used only from the same machine. Context is already imported by smrmgr.
 
 ```cgo title="The smrctl ps command is used to list all containers in the cluster"
 smrctl ps
-NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS  ENGINE STATE  SMR STATE  
+NODE         RESOURCE                             PORTS IMAGE STATE ENGINE STATE     SMR STATE       
+─────────────────────────────────────────────────────────────────────────────────────────────────────
 ```

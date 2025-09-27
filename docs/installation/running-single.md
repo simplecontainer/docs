@@ -22,7 +22,7 @@ The command smrmgr start must be run as non-root user otherwise the deployment w
 :::
 
 ```bash text title="Starting simplecontainer node with control plane exposed on the smr.example.com"
-smrmgr start -n smr-node-1 -d node.simplecontainer.io
+smrmgr start -d node.simplecontainer.io
 ```
 
 This starts the simplecontainer node and control plane listens on the `0.0.0.0:1443` which means all interfaces,
@@ -36,7 +36,7 @@ Ports exposed when started using command above:
 - `:::1443->1443/tcp` (Simplecontainer control plane ipv6)
 - `127.0.0.1:2379->2379/tcp` (Etcd exposed only on the localhost)
 
-Option `-n` is not mandatory but is used for specifying name of the node. It must be unique in cluster.
+Option `-n` is not mandatory but is used for specifying name of the node.
 
 Options `-d` specifies that node generates certificates for mTLS which are only valid for the `smr.example.com`.
 
@@ -53,7 +53,6 @@ Key capabilities:
 - Encrypted imports – import encrypted contexts to quickly connect to new clusters.
 
 ```cgo title="Context needs to be imported from smr agent first (on the same machine), then can be exported to other machines"
-smrctl context import $(smr agent export --node smr-node-1) -y
 smrctl context export --api node-1.simplecontainer.io:1443
 ```
 
@@ -75,5 +74,6 @@ Now control plane should be accessible.
 
 ```cgo title="The smrctl ps command is used to list all containers in the cluster"
 smrctl ps
-NODE  GROUP  NAME  DOCKER NAME  IMAGE  IP  PORTS  DEPS  ENGINE STATE  SMR STATE  
+NODE         RESOURCE                             PORTS IMAGE STATE ENGINE STATE     SMR STATE       
+─────────────────────────────────────────────────────────────────────────────────────────────────────
 ```

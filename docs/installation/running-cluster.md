@@ -59,7 +59,6 @@ Key capabilities:
 - Encrypted imports – import encrypted contexts to quickly connect to new clusters.
 
 ```cgo title="Context needs to be imported from smr agent first (on the same machine), then can be exported to other machines"
-smrctl context import $(smr agent export --node smr-node-1) -y
 smrctl context export --api node-1.simplecontainer.io:1443
 ```
 
