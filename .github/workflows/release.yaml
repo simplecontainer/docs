@@ -39,9 +39,10 @@ jobs:
       - name: Build docs site
         run: |
           mkdir -p public
-          cp -r docs/* public/
           npm ci
           npm run build
+          
+          cp -r build/* public/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
